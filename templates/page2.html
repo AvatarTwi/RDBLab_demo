@@ -1,0 +1,217 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RDBLab</title>
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-lg bg-secondary-subtle">
+        <div class="container">
+            <a href="#" class="navbar-brand">
+                RDBlab: An artificial simulation system for RDBMSs
+            </a>
+        </div>
+    </nav>
+    <nav class="navbar navbar-expand-lg bg-secondary-subtle">
+        <div class="container">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'page1' %}" style="padding-left: 0;">User Configuration</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'page2' %}">Model Generation</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'page3' %}">System Simulation</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'page4' %}">Device Comparison</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <hr style="margin: 0;padding: 0;">
+    <section class="flex-grow-1 d-flex justify-content-center align-items-center bg-secondary-subtle">
+        <div class="custom-container custom-main">
+            <div id="editor" class="mb-3 editable-content" contenteditable="true">
+{#                <div id="placeholder">#}
+{#                    Simulation Space:<br>#}
+{#                    The 3 hardware configuraion were found<br>#}
+{#                    The 15 index candidates were found<br>#}
+{#                    The 22 query template were found<br>#}
+{#                    The 8 tables were found<br>#}
+{#                    The 5 adjustable knob were found<br>#}
+{#                    The data scale was 1 GB#}
+{#                </div>#}
+            </div>
+
+            <div class="d-flex gap-3">
+{#                <label for="file" class="btn btn-outline-dark btn-lg w-50">#}
+{#                    Revision Space#}
+{#                    <input type="file" accept=".yaml" id="file" onchange="handle(this.files)"#}
+{#                           class="form-control d-none">#}
+{#                </label>#}
+                <button href="#" id="button2" class="btn btn-outline-dark w-50">
+                    Revision Space
+                </button>
+                <button href="#" id="button3" class="btn btn-outline-dark w-50">
+                    Generate
+                </button>
+            </div>
+        </div>
+    </section>
+    <hr style="margin: 0;padding: 0;">
+    <footer class="text-center p-2 bg-secondary-subtle">
+        <div class="container">
+            <p class="lead" style="margin-top: 16px;">Copyright &copy; RDBLab</p>
+        </div>
+    </footer>
+    <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.13/ace.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.13/mode-yaml.min.js"></script>
+    <script src="{% static 'css/style.css' %}"></script>
+</body>
+
+
+<script>
+
+    $(document).ready(function(){
+        $("#button2").click(function () {
+            {#alert("Success!");#}
+            var editor = ace.edit("editor");
+            htmlobj = $.ajax({
+                url: '/page2/button2',
+                data: {
+                    yml: editor.getValue()
+                },
+                //contentType: "application/json",
+                type: "GET",
+                async: false,
+                success: function () {
+                    // 使用返回的数据填充result div
+                },
+                error: function () {
+                    alert("Failed");
+                }
+            });
+            editor.setFontSize(20)
+
+            editor.setValue(htmlobj.responseText);
+
+            var yamlData = jsyaml.load(initialValue);
+
+            editor.getSession().on("change", function () {
+                var yamlText = editor.getValue();
+
+                try {
+                    var newData = jsyaml.load(yamlText);
+                    console.log("Parsed YAML data:", newData);
+                } catch (err) {
+                    console.error("Error parsing YAML data:", err);
+                }
+            });
+        })
+    })
+
+    $(function () {
+        $("#button3").click(function () {
+            alert("Success!");
+            var editor = ace.edit("editor");
+            $.ajax({
+                url: '/page2/button3',
+                data: {
+                    yml: editor.getValue()
+                },
+                type: "GET",
+                dataType: 'json',
+                async: false,
+                success: function () {
+                    // 使用返回的数据填充result div
+                },
+                error: function () {
+                    alert("Failed");
+                }
+            });
+        })
+    })
+
+    function edit(tk) {
+        var row = $(tk).closest('tr'); // 获取当前行元素
+        var cells = row.find('td'); // 获取该行所有单元格
+        var knob = cells.eq(0).text(); // 获取第一列的文本内容
+        var value = cells.eq(1).text(); // 获取第二列的文本内容
+
+        // 创建一个输入框并将value填充到其中
+        var input = $("<input type='text' value='" + value + "'>");
+
+        // 将输入框替换掉当前单元格的文本内容
+        cells.eq(1).html(input);
+
+        // 将输入框聚焦以便编辑
+        input.focus();
+
+        // 当输入框失去焦点时，将编辑后的值填充回单元格中
+        input.blur(function () {
+            var editedValue = input.val();
+            cells.eq(1).text(editedValue);
+        });
+    }
+
+    function handle(files) {
+
+        //document.getElementById("textareaCode").innerHTML
+
+        // alert(arera);
+        /* removeResult(); */
+        if (files.length) {
+            var file = files[0];
+            // alert(file.name);
+            var reader = new FileReader();
+            // alert(reader);
+            reader.onload = function () {
+                text = this.result + "\r\n";
+                var editor = ace.edit("editor");
+                {#editor.setTheme("ace/theme/twilight");#}
+                {#editor.session.setMode("ace/mode/yaml");#}
+                editor.setFontSize(20)
+
+                var initialValue = this.result + "\r\n";
+
+                editor.setValue(initialValue);
+
+                var yamlData = jsyaml.load(initialValue);
+
+                editor.getSession().on("change", function () {
+                    var yamlText = editor.getValue();
+
+                    try {
+                        var newData = jsyaml.load(yamlText);
+                        console.log("Parsed YAML data:", newData);
+                    } catch (err) {
+                        console.error("Error parsing YAML data:", err);
+                    }
+                });
+
+            }
+            reader.readAsText(file);
+
+        }
+    }
+
+
+</script>
+
+</html>
+

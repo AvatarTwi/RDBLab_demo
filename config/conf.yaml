@@ -1,0 +1,44 @@
+server:
+  server1:
+    address: 192.168.10.42
+    ssh_port: 22
+    user: root1
+    password: pw1
+    database: 
+      name: postgresql
+      port: 5432
+      username: postgres
+      password: postgres
+      path: \opt\module\postgres
+      conf_path: \opt\module\postgres\data\postgresql.conf
+  server2:
+    address: 192.168.10.43
+    ssh_port: 22
+    user: root2
+    password: pw2
+    database: 
+      name: postgresql
+      port: 5432
+      username: postgres
+      password: postgres
+      path: \opt\module\postgres
+      conf_path: \opt\module\postgres\data\postgresql.conf
+  server3:
+    address: 192.158.10.44
+    ssh_port: 22
+    user: root3
+    password: pw3
+    database: 
+      name: postgresql
+      port: 5432
+      username: postgres
+      password: postgres
+      path: \opt\module\postgres
+      conf_path: \opt\module\postgres\data\postgresql.conf
+  
+client:
+  workload:
+    path: \opt\workload
+  data:
+    path: \opt\data
+    script: \opt\shell\data.sh

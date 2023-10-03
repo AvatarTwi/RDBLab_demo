@@ -1,0 +1,26 @@
+conf13:
+  effective_cache_size: 23673407kB
+  geqo_selection_bias: 1.82
+  maintenance_work_mem: 3680170kB
+  max_wal_size: 1398MB
+  random_page_cost: 204.32
+  work_mem: 2879068kB
+  enable_nestloop: on
+  full_page_writes: on
+  plan_cache_mode: auto
+  commit_delay: 2352
+  shared_buffers: 544388
+  wal_buffers: 8426
+conf19:
+  effective_cache_size: 33229689kB
+  geqo_selection_bias: 1.94
+  maintenance_work_mem: 2726414kB
+  max_wal_size: 5607MB
+  random_page_cost: 26.25
+  work_mem: 3930984kB
+  enable_nestloop: off
+  full_page_writes: on
+  plan_cache_mode: force_custom_plan
+  commit_delay: 3472
+  shared_buffers: 81986
+  wal_buffers: 8653

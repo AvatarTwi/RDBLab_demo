@@ -1,0 +1,23 @@
+Simulation_Space:
+  hardware_configuraion: Linux CentOS 7
+  workload: \opt\workload
+  index candidates: ['c_ck', 'c_nk', 'p_pk', 's_sk', 's_nk', 'ps_pk', 'ps_sk',
+               'ps_pk_sk', 'ps_sk_pk', 'o_ok', 'o_ck', 'o_od', 'l_ok', 'l_pk',
+               'l_sk', 'l_sd', 'l_cd', 'l_rd', 'l_pk_sk', 'l_sk_pk', 'n_nk',
+               'n_rk', 'r_rk']
+  tables: ['customer', 'lineitem', 'nation', 'orders', 'part', 'partsupp',
+             'region', 'supplier']
+  adjustable_knob:
+    - effective_cache_size
+    - geqo_selection_bias
+    - maintenance_work_mem
+    - max_wal_size
+    - random_page_cost
+    - work_mem
+    - enable_nestloop
+    - full_page_writes
+    - plan_cache_mode
+    - commit_delay
+    - shared_buffers
+    - wal_buffers
+  data_scale: 1GB

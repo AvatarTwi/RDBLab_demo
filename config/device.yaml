@@ -1,0 +1,22 @@
+device:
+  device1:
+    address: 192.168.10.42
+    ssh_port: 22
+    user: root1
+    password: pw1
+    hardware:
+      cpu: R7 7735H/HS
+      gpu: AMD RDNA2 680m
+      memory: 4G
+      disk: 32G
+  device2:
+    address: 192.168.10.43
+    ssh_port: 22
+    user: root2
+    password: pw2
+    hardware:
+      cpu: i7-12700H
+      gpu: NVIDIA GeForce RTX 3060 Laptop GPU
+      memory: 8G
+      disk: 150G
+conf: 1

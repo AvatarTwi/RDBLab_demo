@@ -82,8 +82,8 @@ def get_transfer_result(config):
 
     lines = "device1 approximate time cost {}s.\n\n" \
             "device2 approximate time cost {}s.\n\n" \
-            "So {} runs faster.\n\n" \
+            "So in config{}, {} runs faster.\n\n" \
             "It is {} seconds faster than the other device.\n\n" \
-            "With throughput {}% higher".format(sum1, sum2, prio, diff, inference)
+            "With throughput {}% higher".format(sum1, sum2, config, prio, diff, inference)
 
     return lines
